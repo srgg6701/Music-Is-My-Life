@@ -11,4 +11,24 @@ body{
     background: linear-gradient(to bottom, #1f0127 20px, rgba(255,255,255,0.5) 300px);
     float: none;
     min-height: 100%;
+    padding: 0 24px;
+}
+ul.menu{
+    display: inline-block;
+    margin: 20px 0;
+    padding: 0;
+}
+.menu li{
+    display: inline-block;
+    float: left;
+    padding: 0 14px;
+}
+#menu-top a{
+    color: white;
+    font-family: Tahoma, Arial, serif;
+    text-decoration: none;
+}
+
+#menu-top li +li{
+    border-left: solid 1px white;
 }
