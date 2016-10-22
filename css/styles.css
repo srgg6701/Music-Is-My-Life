@@ -1,0 +1,14 @@
+html{
+    height: 100%;
+}
+body{
+    background: url('../images/music_is_my_life-biggest.jpg') no-repeat center;
+    background-size: contain;
+    background-color: #1f0127;
+    height: 100%;
+}
+#page{
+    background: linear-gradient(to bottom, #1f0127 20px, rgba(255,255,255,0.5) 300px);
+    float: none;
+    min-height: 100%;
+}
