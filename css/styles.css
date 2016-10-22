@@ -7,11 +7,21 @@ body{
     background-color: #1f0127;
     height: 100%;
 }
+*{
+    box-sizing: border-box;
+}
+main{
+    padding: 0 14px;
+}
 #page{
     background: linear-gradient(to bottom, #1f0127 20px, rgba(255,255,255,0.5) 300px);
     float: none;
     min-height: 100%;
     padding: 0 24px;
+}
+#scene{
+    color:white;
+    padding: 30px;
 }
 ul.menu{
     display: inline-block;
@@ -31,4 +41,11 @@ ul.menu{
 
 #menu-top li +li{
     border-left: solid 1px white;
+}
+#scene{
+    background-color: rgba(31,1,39,0.4);
+    border-radius: 10px;
+    margin: 40px auto;
+    min-height: 200px;
+    width: 100%;
 }

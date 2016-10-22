@@ -7,7 +7,9 @@
     <title>Baltic March</title>
     <link rel="stylesheet" href="node_modules/bootstrap-grid-only/bootstrap.css"/>
     <link rel="stylesheet" href="css/styles.css"/>
+    <script src="node_modules/underscore/underscore-min.js"></script>
     <script src="node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="node_modules/backbone/backbone-min.js"></script>
 </head>
 <body>
 <div id="page" class="container col-sm-9">
@@ -21,7 +23,14 @@
             <li><a href="#youtoube">YouTube</a></li>
         </ul>
     </header>
-    <main></main>
+    <main>
+        <div id="scene"></div>
+        <script type="text/template" id="template-main">
+            <div>Hello, Dude!</div>
+            <%= contents %>
+        </script>
+    </main>
 </div>
+<script src="js/app.js"></script>
 </body>
 </html>
