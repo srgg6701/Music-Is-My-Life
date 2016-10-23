@@ -6,6 +6,8 @@ body{
     background-size: contain;
     background-color: #1f0127;
     height: 100%;
+    font-family: Consolas, Verdana, serif;
+    font-size: 18px;
 }
 *{
     box-sizing: border-box;
@@ -34,13 +36,16 @@ ul.menu{
     padding: 0 14px;
 }
 #menu-top a{
-    color: white;
+    color: rgba(255,255,255,0.8);
     font-family: Tahoma, Arial, serif;
+    font-size: 16px;
     text-decoration: none;
 }
-
+#menu-top a:hover{
+    color:white;
+}
 #menu-top li +li{
-    border-left: solid 1px white;
+    border-left: solid 1px rgba(255,255,255,0.5);
 }
 #scene{
     background-color: rgba(31,1,39,0.4);
@@ -48,4 +53,7 @@ ul.menu{
     margin: 40px auto;
     min-height: 200px;
     width: 100%;
+}
+.header-lead{
+    margin-top: 0;
 }
