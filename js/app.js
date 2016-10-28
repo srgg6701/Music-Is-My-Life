@@ -1,5 +1,16 @@
+
 (function () {
-    console.log('Start app!');
+
+    function setHtml(path, view, field, selector){
+        if(!selector) selector = '#template-main';
+        if(!field) field = 'contents';
+        $.get(path, function(data){
+            var content = {};
+            content[field] = data;
+            view.$el.html(_.template($(selector).html())(content));
+        });
+        return view;
+    }
     var appModel = Backbone.Model.extend({
             defaults: {
                 contents: 'Some contents model'
@@ -10,74 +21,38 @@
         }),
         homeView = Backbone.View.extend({
             el: '#scene',
-            initialize: function () { console.log('homeView') },
+            initialize: function () {
+                //console.log('homeView');
+            },
             render: function () {
-                var data = {
-                    contents: `<h4 class="header-lead">Hi, Dude!</h4>
-                    <p>Home, sweet home...</p>`
-                };
-                var template = $('#template-main').html();
-                this.$el.html(_.template(template)(data));
+                return setHtml('contents/home.html', this);
             }
         }),
         tracksView = Backbone.View.extend({
             el: '#scene',
-            initialize: function () { console.log('tracksView') },
+            initialize: function () {
+                //console.log('tracksView');
+            },
             render: function () {
-                var data = {
-                    contents: `<h4 class="header-lead">Some nice tracks here</h4>
-                    <p>Choose what you like</p>`
-                };
-                var template = $('#template-main').html();
-                this.$el.html(_.template(template)(data));
+                return setHtml('contents/tracks.html', this);
             }
         }),
         aboutView = Backbone.View.extend({
             el: '#scene',
-            initialize: function () { console.log('aboutView') },
+            initialize: function () {
+                //console.log('aboutView');
+            },
             render: function () {
-                var data = {
-                    contents: `<h4 class="header-lead">All about the way here</h4>
-                    <p>It will be really interesting!</p>`
-                };
-                var template = $('#template-main').html();
-                this.$el.html(_.template(template)(data));
+                return setHtml('contents/about.html', this);
             }
         }),
         contactView = Backbone.View.extend({
             el: '#scene',
-            initialize: function () { console.log('contactView') },
+            initialize: function () {
+                //console.log('contactView');
+            },
             render: function () {
-                var data = {
-                    contents: `<h4 class="header-lead">Call, write, email!</h4>
-                    <p>I will give you my answer, anyway!</p>`
-                };
-                var template = $('#template-main').html();
-                this.$el.html(_.template(template)(data));
-            }
-        }),
-        facebookView = Backbone.View.extend({
-            el: '#scene',
-            initialize: function () { console.log('faceboookView') },
-            render: function () {
-                var data = {
-                    contents: `<h4 class="header-lead">Yes, we attend there also</h4>
-                    <p>Not sure, however, that it makes sense ─ to write anything here insted of redirecting to Facebook itself...</p>`
-                };
-                var template = $('#template-main').html();
-                this.$el.html(_.template(template)(data));
-            }
-        }),
-        youtubeView = Backbone.View.extend({
-            el: '#scene',
-            initialize: function () { console.log('tracksView') },
-            render: function () {
-                var data = {
-                    contents: `<h4 class="header-lead">Youtube Channel</h4>
-                    <p>Yeah... we've got that. Welcome!</p>`
-                };
-                var template = $('#template-main').html();
-                this.$el.html(_.template(template)(data));
+                return setHtml('contents/contact.html', this);
             }
         }),
         // router here
@@ -87,9 +62,7 @@
                 'home': 'homeRoute',
                 'tracks': 'tracksRoute',
                 'about': 'aboutRoute',
-                'contact': 'contactRoute',
-                'facebook': 'facebookRoute',
-                'youtube': 'youtubeRoute'
+                'contact': 'contactRoute'
             },
             homeRoute: function () {
                 view_home.render();
@@ -102,12 +75,6 @@
             },
             contactRoute: function () {
                 view_contact.render();
-            },
-            facebookRoute: function () {
-                view_facebook.render();
-            },
-            youtubeRoute: function () {
-                view_youtube.render();
             }
         }),
         model = new appModel(),
@@ -115,8 +82,6 @@
         view_tracks = new tracksView({model:model}),
         view_about = new aboutView({model:model}),
         view_contact = new contactView({model:model}),
-        view_facebook = new facebookView({model:model}),
-        view_youtube = new youtubeView({model:model}),
         router = new AppRouter();
     Backbone.history.start();
 })();
