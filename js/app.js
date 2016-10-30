@@ -1,6 +1,5 @@
 
 (function () {
-
     function setHtml(path, view, field, selector){
         if(!selector) selector = '#template-main';
         if(!field) field = 'contents';
@@ -10,6 +9,9 @@
             view.$el.html(_.template($(selector).html())(content));
         });
         return view;
+    }
+    function setPageBackgroundImage(){
+
     }
     var appModel = Backbone.Model.extend({
             defaults: {
@@ -25,6 +27,7 @@
                 //console.log('homeView');
             },
             render: function () {
+                //console.log()
                 return setHtml('contents/home.html', this);
             }
         }),
@@ -55,33 +58,37 @@
                 return setHtml('contents/contact.html', this);
             }
         }),
-        // router here
-        AppRouter = Backbone.Router.extend({
-            routes: {
-                '': 'homeRoute',
-                'home': 'homeRoute',
-                'tracks': 'tracksRoute',
-                'about': 'aboutRoute',
-                'contact': 'contactRoute'
-            },
-            homeRoute: function () {
-                view_home.render();
-            },
-            tracksRoute: function () {
-                view_tracks.render();
-            },
-            aboutRoute: function () {
-                view_about.render();
-            },
-            contactRoute: function () {
-                view_contact.render();
-            }
-        }),
         model = new appModel(),
-        view_home = new homeView({model:model}),
+        /*view_home = new homeView({model:model}),
         view_tracks = new tracksView({model:model}),
         view_about = new aboutView({model:model}),
-        view_contact = new contactView({model:model}),
+        view_contact = new contactView({model:model}),*/
+        config = {
+            routes: [
+                ['', homeView/*,        view_home.render*/],
+                ['home', homeView/*,    view_home.render*/],
+                ['tracks', tracksView/*,  view_tracks.render*/],
+                ['about', aboutView/*,   view_about.render*/],
+                ['contact', contactView/*, view_contact.render*/]
+            ]
+        },
+        // router here
+        AppRouter = Backbone.Router.extend({
+            routes: (function(){
+                var routes = {}, view;
+                _.each(config.routes, function(route){
+                    view = new route[1]({model:model});
+                    routes[route[0]] = function(){ view.render(); }
+                }); console.log('routes', routes);
+                return routes;
+            })()/*{
+             '': 'homeRoute',
+             'home': 'homeRoute',
+             'tracks': 'tracksRoute',
+             'about': 'aboutRoute',
+             'contact': 'contactRoute'
+             }*/
+        }),
         router = new AppRouter();
     Backbone.history.start();
 })();
