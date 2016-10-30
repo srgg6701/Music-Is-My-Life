@@ -38,7 +38,7 @@ var tracksView = Backbone.View.extend({
     playTrack: function(event){
         //console.log('event', event.target.dataset['src']);
         var $audioPlayer = $('#audio-player'), track_src = event.target.dataset['src'];
-        $audioPlayer.attr('src', '/contents/tracks/'+track_src+'.mp3');
+        $audioPlayer.attr('src', 'contents/tracks/'+track_src+'.mp3');
         $audioPlayer[0].play();
         $('#track-title').text(track_src.replace('_', ' '));
     }
