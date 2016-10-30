@@ -27,7 +27,7 @@
                 //console.log('homeView');
             },
             render: function () {
-                //console.log()
+                //console.log('Home, this', this);
                 return setHtml('contents/home.html', this);
             }
         }),
@@ -37,6 +37,7 @@
                 //console.log('tracksView');
             },
             render: function () {
+                //console.log('Tasks, this', this);
                 return setHtml('contents/tracks.html', this);
             }
         }),
@@ -46,6 +47,7 @@
                 //console.log('aboutView');
             },
             render: function () {
+                //console.log('About, this', this);
                 return setHtml('contents/about.html', this);
             }
         }),
@@ -55,39 +57,32 @@
                 //console.log('contactView');
             },
             render: function () {
+                //console.log('Contact, this', this);
                 return setHtml('contents/contact.html', this);
             }
         }),
         model = new appModel(),
-        /*view_home = new homeView({model:model}),
-        view_tracks = new tracksView({model:model}),
-        view_about = new aboutView({model:model}),
-        view_contact = new contactView({model:model}),*/
         config = {
             routes: [
-                ['', homeView/*,        view_home.render*/],
-                ['home', homeView/*,    view_home.render*/],
-                ['tracks', tracksView/*,  view_tracks.render*/],
-                ['about', aboutView/*,   view_about.render*/],
-                ['contact', contactView/*, view_contact.render*/]
-            ]
+                ['', homeView],
+                ['home', homeView],
+                ['tracks', tracksView],
+                ['about', aboutView],
+                ['contact', contactView]
+            ],
+            handlers:{}
         },
         // router here
         AppRouter = Backbone.Router.extend({
             routes: (function(){
-                var routes = {}, view;
+                var routes = {}, view, run;
                 _.each(config.routes, function(route){
-                    view = new route[1]({model:model});
-                    routes[route[0]] = function(){ view.render(); }
+                    config.handlers[route[0]] = new route[1]({model:model});
+                    //console.log({view: view, run: run});
+                    routes[route[0]] = function (){ config.handlers[route[0]].render.call(config.handlers[route[0]]); }
                 }); console.log('routes', routes);
                 return routes;
-            })()/*{
-             '': 'homeRoute',
-             'home': 'homeRoute',
-             'tracks': 'tracksRoute',
-             'about': 'aboutRoute',
-             'contact': 'contactRoute'
-             }*/
+            })()
         }),
         router = new AppRouter();
     Backbone.history.start();
