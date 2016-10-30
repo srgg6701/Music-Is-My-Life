@@ -6,7 +6,14 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
     <title>Baltic March</title>
     <link rel="stylesheet" href="node_modules/bootstrap-grid-only/bootstrap.css"/>
-    <link rel="stylesheet" href="css/styles.css"/>
+    <link rel="stylesheet" href="css/layout.css"/>
+    <link rel="stylesheet" href="css/classes.css"/>
+    <link rel="stylesheet" href="css/components/menu-top.css"/>
+    <link rel="stylesheet" href="css/components/scene.css"/>
+    <link rel="stylesheet" href="css/components/page.css"/>
+    <link rel="stylesheet" href="css/components/track.css"/>
+    <link rel="stylesheet" href="css/components/audio-player.css"/>
+    <link rel="stylesheet" href="css/components/data-src.css"/>
     <script src="node_modules/underscore/underscore-min.js"></script>
     <script src="node_modules/jquery/dist/jquery.min.js"></script>
     <script src="node_modules/backbone/backbone-min.js"></script>
@@ -24,7 +31,8 @@
         </ul>
     </header>
     <main>
-        <div id="scene"></div>
+        <h1 id="page-title" class="pull-right">Home</h1>
+        <div id="scene" class="clearfix"></div>
         <script type="text/template" id="template-main">
             <%= contents %>
         </script>

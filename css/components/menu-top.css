@@ -1,0 +1,14 @@
+#menu-top a {
+    color: rgba(255, 255, 255, 0.8);
+    font-family: Tahoma, Arial, serif;
+    font-size: 16px;
+    text-decoration: none;
+}
+
+#menu-top a:hover {
+    color: white;
+}
+
+#menu-top li + li {
+    border-left: solid 1px rgba(255, 255, 255, 0.5);
+}

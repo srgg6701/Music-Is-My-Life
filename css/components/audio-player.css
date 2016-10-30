@@ -1,0 +1,7 @@
+audio {
+    width: 100%;
+}
+#audio-player-box {
+    min-width: 300px;
+    max-width: 450px;
+}

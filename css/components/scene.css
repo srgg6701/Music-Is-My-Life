@@ -1,0 +1,13 @@
+#scene {
+    background-color: rgba(31, 1, 39, 0.4);
+    border-radius: 10px;
+    clear: both;
+    color: white;
+    margin: 0 auto 40px auto;
+    padding: 30px;
+    width: 100%;
+}
+
+#scene > *:last-child {
+    margin-bottom: 0;
+}

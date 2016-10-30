@@ -1,0 +1,16 @@
+#tracks-box {
+    clear: both;
+    padding-top: 20px;
+}
+
+@media (min-width: 768px) {
+    #tracks-box {
+        clear: none;
+        float: right;
+        padding-top: 0;
+    }
+}
+
+#track-title{
+    margin-top: 0;
+}
