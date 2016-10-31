@@ -6,7 +6,8 @@
 @media (min-width: 768px) {
     #tracks-box {
         clear: none;
-        float: right;
+        float: left;
+        padding-left: 10%;
         padding-top: 0;
     }
 }
