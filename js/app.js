@@ -16,7 +16,7 @@ function setPageTitle(title){
 }
 // change background
 function setPageBackgroundImage(img, settings){
-    $('#page-palette').css('background-image', 'url(\'/images/'+img+'.jpg\')').css(settings);
+    $('#page-palette').css('background-image', 'url(\'images/'+img+'.jpg\')').css(settings);
 }
 (function () {
     new AppRouter();
