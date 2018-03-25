@@ -1,9 +1,8 @@
-var aboutView = Backbone.View.extend({
+const aboutView = Backbone.View.extend({
     el: '#scene',
-    initialize: function () {
+    initialize() {
     },
-    render: function () {
-        //console.log('About, this', this);
+    render() {
         setPageBackgroundImage('about', {'background-size':'cover', opacity: "0.3"});
         return setHtml('about', this);
     }

@@ -18,7 +18,7 @@ function setPageTitle(title){
 function setPageBackgroundImage(img, settings){
     $('#page-palette').css('background-image', 'url(\'images/'+img+'.jpg\')').css(settings);
 }
-(function () {
+(() => {
     new AppRouter();
     Backbone.history.start();
 })();

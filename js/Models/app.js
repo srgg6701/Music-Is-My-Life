@@ -1,4 +1,4 @@
-var appModel = Backbone.Model.extend({
+const appModel = Backbone.Model.extend({
         defaults: {
             contents: 'Some contents model'
         },

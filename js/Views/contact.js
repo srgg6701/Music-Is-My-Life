@@ -1,9 +1,8 @@
 var contactView = Backbone.View.extend({
     el: '#scene',
-    initialize: function () {
+    initialize() {
     },
-    render: function () {
-        //console.log('Contact, this', this);
+    render () {
         setPageBackgroundImage('contact', {'background-size':'cover', opacity: "0.3"});
         return setHtml('contact', this);
     }

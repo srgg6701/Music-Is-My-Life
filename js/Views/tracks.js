@@ -3,19 +3,35 @@ const tracksView = Backbone.View.extend({
     events: {
         'click #tracks-play_all'(event) {
             const checkbox = event.target,
-                $track = config.getTracksBox().find(`[${config.data.src}]`).eq(0);
+                $getTrack = (active) => {
+                    let selector = `[${config.data.src}]`,
+                        $track = config.$getTracksBox().find(selector).eq(0),
+                        $activeTrack;
+                    if (active) {
+                        $activeTrack = $(`${selector}.${config.classes.active}`);
+                        if (!$activeTrack.length) $track.trigger('click');
+                    }
+                    return $track;
+                }
             if (checkbox.checked) {
                 let $nextTrack;
-                config.getAudioPlayer().on('ended', () => {
-                    let dataTrack = config.getAudioPlayer().data(config.data.track);
+                config.$getAudioPlayer().on('ended', () => {
+                    let dataTrack = config.$getAudioPlayer().data(config.data.track);
+                    // no tracks were run yet
                     if (!dataTrack) {
-                        dataTrack = $track.attr(config.data.src);
+                        dataTrack = $getTrack().attr(config.data.src);
                     }
-                    $(`[${config.data.src}="${dataTrack}"]`).next().trigger('click');
+                    const $nextTrack = $(`[${config.data.src}="${dataTrack}"]`).next();
+                    
+                    if ($nextTrack.length) $nextTrack.trigger('click');
+                    else if ($('#tracks-loop')[0].checked) {
+                        $getTrack().trigger('click');
+                    }
                 });
-                $track.trigger('click');
+                // get active or first track, run if have no active
+                $getTrack(true);
             } else {
-                config.getAudioPlayer().off('ended');
+                config.$getAudioPlayer().off('ended');
             }
         }
     },
@@ -27,14 +43,14 @@ const tracksView = Backbone.View.extend({
     },
     render() {
         setPageBackgroundImage('tracks', { 'background-size': 'cover', opacity: "0.3" });
-        //console.log('Tasks', {model:this.model});
+        console.log('Tasks', {model:this.model});
         var html = setHtml('tracks', this),
-            Model = this.model,
-            loadTrack = Model.get('loadTrack'),
+            loadTrack = this.model.get('loadTrack'),
             tracksBox = html.$el[0],
             tracksToPlay = {};
 
-        this.tracks = Model.get('tracks')().then(function (tracks) {
+        
+        this.tracks = this.model.get('tracks')().then(function (tracks) {
             var $trackBoxContainer = $(tracksBox).find('#tracks-box');
             //console.log({ tracks: tracks, html: html, $trackBoxContainer: $trackBoxContainer });
             _.each(tracks, function (track) {
@@ -58,10 +74,10 @@ const tracksView = Backbone.View.extend({
         $(`.${activeClass}`).removeClass(activeClass);
         trackLink.classList.add(activeClass);
         //console.log('event', trackLink.dataset['src']);
-        config.getAudioPlayer()
+        config.$getAudioPlayer()
             .attr('src', 'contents/tracks/' + track_src + '.mp3')
             .data(config.data.track, track_src);
-        config.getAudioPlayer()[0].play();
+        config.$getAudioPlayer()[0].play();
         $('#track-title').text(track_src.replace('_', ' '));
     }
 });

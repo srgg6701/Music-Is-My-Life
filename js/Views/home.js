@@ -1,9 +1,8 @@
 var homeView = Backbone.View.extend({
     el: '#scene',
-    initialize: function () {
+    initialize() {
     },
-    render: function () {
-        //console.log('Home, this', this);
+    render() {
         setPageBackgroundImage('home', {'background-size':'contain', opacity: '1'});
         return setHtml('home', this);
     }
