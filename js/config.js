@@ -1,10 +1,12 @@
-var config = {
-    routes: [
-        ['', homeView, modelApp],
-        ['home', homeView, modelApp],
-        ['tracks', tracksView, new tracksModel()],
-        ['about', aboutView, modelApp],
-        ['contact', contactView, modelApp]
-    ],
-    handlers:{} // will be filled in the loop bellow
+const config = {
+    handlers:{}, // will be filled in the loop bellow
+    getAudioPlayer: () => $('#audio-player'),
+    getTracksBox: () => $('#tracks-box'),
+    classes: {
+        active: 'active'
+    },
+    data: {
+        track: 'track',
+        src: 'data-src'
+    }
 };

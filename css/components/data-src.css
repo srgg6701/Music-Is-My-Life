@@ -1,7 +1,14 @@
 [data-src] {
     cursor: pointer;
+    white-space: nowrap;
 }
 
 [data-src]:hover {
     text-decoration: underline;
+}
+[data-src].active {
+    background-color: #fafafa;
+    color: black;
+    padding: 0px 4px;
+    margin: 0px -4px;
 }

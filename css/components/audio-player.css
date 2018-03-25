@@ -5,3 +5,10 @@ audio {
     min-width: 300px;
     max-width: 450px;
 }
+#tracks-options{
+    margin-top: 4px;
+    padding:0;
+}
+#tracks-options li{
+    display: inline-block;
+}
