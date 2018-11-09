@@ -1,8 +1,9 @@
 const modelTracks = new tracksModel();
 config.routes = [
-    ['', tracksView, modelTracks],
-    ['home', homeView, modelApp],
-    ['tracks', tracksView, modelTracks],
+    ['', homeView, modelTracks],
+    //['', tracksView, modelTracks],
+    ['home', homeView, modelTracks],
+    // ['tracks', tracksView, modelTracks],
     ['about', aboutView, modelApp],
     ['contact', contactView, modelApp]
 ];

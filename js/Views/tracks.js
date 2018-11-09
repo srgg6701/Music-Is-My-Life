@@ -48,8 +48,7 @@ const tracksView = Backbone.View.extend({
             loadTrack = this.model.get('loadTrack'),
             tracksBox = html.$el[0],
             tracksToPlay = {};
-
-        
+  
         this.tracks = this.model.get('tracks')().then(function (tracks) {
             var $trackBoxContainer = $(tracksBox).find('#tracks-box');
             //console.log({ tracks: tracks, html: html, $trackBoxContainer: $trackBoxContainer });

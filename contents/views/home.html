@@ -1,2 +1,30 @@
-<h4 class="header-lead">Home</h4>
-<p>All about my music. All the content is absolutely free still. Enjoy!</p>
+<header>Music is my life. Enjoy it!</header>
+<hr class="separator">
+<div id="audio-player-box">
+    <header>
+        <ul id="tracks-options">
+            <li>
+                <label>
+                    <input id="tracks-play_all" type="checkbox">Play all
+                </label>
+            </li>
+            <!-- <li>
+            <label>
+                <input id="tracks-random" type="checkbox">Random
+            </label>
+            </li> -->
+            <li>
+                <label>
+                    <input id="tracks-loop" type="checkbox">Loop
+                </label>
+            </li>
+        </ul>
+        <p id="track-title">Choose what you like</p>
+    </header>
+    <section>
+        <!-- <div id="audio-play-temporal"></div> -->
+        <audio controls id="audio-player"></audio>
+    </section>
+
+</div>
+<div id="tracks-box"></div>

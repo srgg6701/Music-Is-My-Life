@@ -1,11 +1,28 @@
 audio {
     width: 100%;
 }
+#audio-play-temporal{
+    display: inline-block;
+    float: left;
+    margin-bottom: -100%;
+    transform: translate(22px,20px);
+    height: 15px;
+    width: 10px;
+    position: relative;
+    z-index: 1;
+    outline: solid 1px red;
+}
 #audio-player-box {
     min-width: 300px;
-    max-width: 450px;
+}
+#audio-player-box header{
+    
+overflow: hidden;
+    
+padding: 0 30px;
 }
 #tracks-options{
+    float: right;
     margin-top: 4px;
     padding:0;
 }
