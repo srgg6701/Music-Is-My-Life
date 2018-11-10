@@ -28,7 +28,6 @@ const homeView = Backbone.View.extend({
                 const rePlay = () => {
                     const selector = `[${dataSrc}="${extractFileNameFromSrc(audioPlayer.src).replace(/\s/g, '_')}"]`;
                     const $nextTrack = $(selector).next();
-                    // console.log('check $nextTrack', { selector, $nextTrack, len: $nextTrack.length });
                     // if there is the next track, play it, otherwise, play a first one
                     ($nextTrack.length
                         ? $nextTrack
