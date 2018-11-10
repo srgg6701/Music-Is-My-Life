@@ -15,24 +15,24 @@
     <link rel="stylesheet" href="css/components/track.css"/>
     <link rel="stylesheet" href="css/components/audio-player.css"/>
     <link rel="stylesheet" href="css/components/data-src.css"/>
+    <script src="js/config.js"></script>
     <script src="js/libs/underscore.js"></script>
     <script src="js/libs/jquery.js"></script>
     <script src="js/libs/backbone.js"></script>
+    <script src="js/handlers.js"></script>
 </head>
-<body>
+<body data-lang="english">
 <div id="page" class="container col-sm-9">
     <header>
         <ul id="menu-top" class="menu menu--top">
-            <li><a href="#">Home</a></li>
-            <!-- <li><a href="#tracks">Tracks</a></li> -->
-            <li><a href="#about">About an Artist</a></li>
-            <!-- <li><a href="#contact">Contact</a></li>
-            <li><a href="http://www.facebook.com">Facebook</a></li> -->
-            <li><a href="http://www.youtube.com">YouTube Channel</a></li>
+            <li><a href="#" data-l="Home">Home</a></li>
+            <li><a href="#about" data-l="About">About an Artist</a></li>
+            <li><a href="http://www.youtube.com">YouTube <span data-l="Channel">Channel</span></a></li>
+            <li><a href="javascript:void(0)" id="change-language"><span class="hidden" data-lang="english">in English</span><span data-lang="russian">по-русски</span></a></li>
         </ul>
     </header>
     <main>
-        <h1 id="page-title" class="pull-right">Home</h1>
+        <h1 id="page-title" class="pull-right" data-l="Home">Home</h1>
         <div id="scene" class="clearfix"></div>
         <script type="text/template" id="template-main">
             <%= contents %>
@@ -40,13 +40,10 @@
     </main>
 </div>
 <div id="page-palette"></div>
-<script src="js/config.js"></script>
 <script src="js/Models/app.js"></script>
 <script src="js/Models/tracks.js"></script>
 <script src="js/Views/home.js"></script>
-<!-- <script src="js/Views/tracks.js"></script> -->
 <script src="js/Views/about.js"></script>
-<!-- <script src="js/Views/contact.js"></script> -->
 <script src="js/router.js"></script>
 <script src="js/app.js"></script>
 </body>

@@ -1,6 +1,9 @@
 .header-lead {
     margin-top: 0;
 }
+.hidden{
+    display: none;
+}
 .no-margin-top {
     margin-top: 0;
 }

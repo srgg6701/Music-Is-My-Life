@@ -44,8 +44,15 @@ z-index: 1;
     z-index: 0;
 }
 
-#audio-player-no-track::after{
+[data-lang="english"] #audio-player-no-track::after{
     content: "Click on a track to play";
+}
+
+[data-lang="russian"] #audio-player-no-track::after{
+    content: "Кликните по треку, чтобы проиграть его";
+}
+
+#audio-player-no-track::after{
     display: inline-block;
     margin: auto;
 }
