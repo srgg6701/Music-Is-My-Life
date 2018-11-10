@@ -16,7 +16,7 @@ $(() => {
                     // if element text like ["is not chosen yet.","не выбран."]
                     && config.values[confNotChosenKey].indexOf(element.dataset['l'].trim()) !== -1
                 ) return;
-                element.innerText = dictionary[element.dataset['l']];
+                element.HTML = dictionary[element.dataset['l']];
             });
         });
     });
