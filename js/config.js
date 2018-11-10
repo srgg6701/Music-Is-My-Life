@@ -3,5 +3,8 @@ const config = {
     classes: {
         active: 'active',
         hidden: 'hidden'
+    },
+    values: {
+        notChosenYet: ["is not chosen yet.","не выбран."]
     }
 };

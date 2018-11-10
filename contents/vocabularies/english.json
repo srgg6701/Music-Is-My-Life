@@ -4,7 +4,8 @@
     "Channel":"Channel",
     "PlayAll":"Play all",
     "Loop":"Loop",
-    "NoTrack":"Track is not chosen yet.",
+    "Track":"Track",
+    "NotChoosenYet": "is not chosen yet",
     "MusicIs":"Music is",
     "MyLife":"my life",
     "EnjoyIt":"Enjoy it"
