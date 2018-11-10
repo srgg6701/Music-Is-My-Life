@@ -45,7 +45,7 @@ z-index: 1;
 }
 
 #audio-player-no-track::after{
-    content: "Click on the track to play";
+    content: "Click on a track to play";
     display: inline-block;
     margin: auto;
 }

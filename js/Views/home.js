@@ -28,9 +28,9 @@ const homeView = Backbone.View.extend({
             if ($getTracksBox[0] && audioPlayer) {
 
                 const rePlay = () => {
-                    const selector = `[${dataSrc}="${extractFileName(audioPlayer.src)}"]`;
+                    const selector = `[${dataSrc}="${extractFileName(audioPlayer.src).replace(/\s/g, '_')}"]`;
                     const $nextTrack = $(selector).next();
-                    console.log('$nextTrack', $nextTrack);
+                    console.log('check $nextTrack', {selector, $nextTrack, len: $nextTrack.length});
                     // if there is the next track, play it, otherwise, play a first one
                     ($nextTrack.length
                         ? $nextTrack
@@ -56,15 +56,12 @@ const homeView = Backbone.View.extend({
                     }
                 }
                 const $initialTrackLink = $getTracksBox.find(`[${dataSrc}]`).eq(0);
-                //const getFirstTrackName = () => getTrackPath($initialTrackLink.text().replace(/\s/, '_'));
                 // manage loop
                 $('#tracks-loop').on('click', event => {
                     audioPlayer.loop = event.target.checked;
                 });
-
                 const playTrack = event => {
                     const trackLink = event.target;
-                    //console.log('event', trackLink.dataset['src']);
                     // set player src
                     // TODO: optimize
                     let track_src = $(trackLink).attr(dataSrc);
@@ -108,7 +105,6 @@ const homeView = Backbone.View.extend({
                 console.warn('Cannot get player...');
             }
         }, 100);
-
     },
     render() {
         setPageBackgroundImage('home', { 'background-size': 'contain', opacity: '1' });
@@ -117,7 +113,6 @@ const homeView = Backbone.View.extend({
             loadTrack = modelTracks.get('loadTrack'),
             tracksBox = html.el,
             tracksToPlay = {};
-
         // console.log('modelTracks', modelTracks); 
         // get tracks list
         this.tracks = modelTracks.get('tracks')().then(tracks => {

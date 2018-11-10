@@ -1,9 +1,5 @@
 config.routes = [
     ['', homeView, modelTracks],
-    // ['', tracksView, modelTracks],
-    // ['home', homeView, modelTracks],
-    // ['tracks', tracksView, modelTracks],
-    // ['contact', contactView, modelApp]
     ['about', aboutView, modelApp],
 ];
 const AppRouter = Backbone.Router.extend({
