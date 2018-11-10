@@ -13,9 +13,12 @@ main {
     padding: 0 14px;
 }
 hr.separator{
-    border-top: none;
-    margin: 30px auto;
-    opacity: 0.5;
+    
+border-top: none;
+    
+margin: 30px auto;
+    
+opacity: 0.5;
 }
 ul.menu {
     display: inline-block;

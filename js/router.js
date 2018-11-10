@@ -1,11 +1,10 @@
-const modelTracks = new tracksModel();
 config.routes = [
     ['', homeView, modelTracks],
-    //['', tracksView, modelTracks],
-    ['home', homeView, modelTracks],
+    // ['', tracksView, modelTracks],
+    // ['home', homeView, modelTracks],
     // ['tracks', tracksView, modelTracks],
+    // ['contact', contactView, modelApp]
     ['about', aboutView, modelApp],
-    ['contact', contactView, modelApp]
 ];
 const AppRouter = Backbone.Router.extend({
     routes: (() =>{

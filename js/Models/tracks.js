@@ -1,19 +1,20 @@
-const tracksModel = Backbone.Model.extend({
-    defaults: {
-        tracks(){
+const tracksModel = Backbone.Model;
+
+    const modelTracks = new tracksModel({
+        // load files list
+        tracks() {
             const deferred = new $.Deferred();
             $.get('contents/tracks/tracks.json', tracks => {
-                //console.log({ this: this, tracks: tracks });
                 deferred.resolve(tracks);
             });
             return deferred.promise();
         },
-        loadTrack(track){
+        // load file
+        loadTrack(track) {
             const deferred = new $.Deferred();
-            $.get('contents/tracks/'+track+'.mp3', track => {
-                deferred.resolve(track);
+            $.get('contents/tracks/' + track + '.mp3', trackMp3 => {
+                deferred.resolve(trackMp3);
             });
             return deferred.promise();
         }
-    }
-});
+    });

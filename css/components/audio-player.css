@@ -1,31 +1,70 @@
 audio {
     width: 100%;
 }
-#audio-play-temporal{
+
+#audio-play-temporal {
     display: inline-block;
     float: left;
     margin-bottom: -100%;
-    transform: translate(22px,20px);
+    transform: translate(22px, 20px);
     height: 15px;
     width: 10px;
     position: relative;
     z-index: 1;
     outline: solid 1px red;
 }
+
+#audio-player{
+    
+position: relative;
+    
+z-index: 1;
+}
+
+#audio-player:not([src]){
+    opacity: 0;
+}
+
 #audio-player-box {
     min-width: 300px;
 }
-#audio-player-box header{
-    
-overflow: hidden;
-    
-padding: 0 30px;
+
+#audio-player-container-wrapper{
+    position:relative;
 }
-#tracks-options{
+
+#audio-player-no-track{
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    height:100%;
+    position:absolute;
+    text-align: center;
+    top: 0;
+    width:100%;
+    z-index: 0;
+}
+
+#audio-player-no-track::after{
+    content: "Click on the track to play";
+    display: inline-block;
+    margin: auto;
+}
+
+#audio-player[src] +#audio-player-no-track{
+    display:none;
+}
+
+#audio-player-box header {
+    overflow: hidden;
+    padding: 0 30px;
+}
+
+#tracks-options {
     float: right;
     margin-top: 4px;
-    padding:0;
+    padding: 0;
 }
-#tracks-options li{
+
+#tracks-options li {
     display: inline-block;
 }

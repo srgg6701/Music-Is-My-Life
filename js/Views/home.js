@@ -1,95 +1,113 @@
+const dataSrc = 'data-src';
+const activeClass = config.classes.active
+//
+const getTrackPath = track_src => `contents/tracks/${track_src}.mp3`;
+const convertSeparator = string => string.replace(/_/g, ' ');
+
 const homeView = Backbone.View.extend({
     el: '#scene',
     initialize() {
-        console.log('this.el', { el: this.el, $el: this.$el });
-        let cnt = 0,
-            intv = setInterval(() => {
 
-                cnt++;
+        // console.log('this.el', { el: this.el, $el: this.$el });
+        //
+        let cnt = 0;
 
-                const $getTracksBox = $('#tracks-box');
-                const $audioPlayer = $('#audio-player');
+        const intv = setInterval(() => {
 
-                if ($getTracksBox[0] && $audioPlayer[0]) {
+            cnt++;
 
+            const $getTracksBox = $('#tracks-box');
+            const $audioPlayer = $('#audio-player');
+            const $tracksPlayAll = $('#tracks-play_all');
+            const audioPlayer = $audioPlayer[0];
+            const extractFileName = track_src => {
+                const fileName = track_src.split('/').pop()
+                return convertSeparator(fileName.substr(0, fileName.lastIndexOf('.')));
+            }
+
+            if ($getTracksBox[0] && audioPlayer) {
+
+                const rePlay = () => {
+                    const selector = `[${dataSrc}="${extractFileName(audioPlayer.src)}"]`;
+                    const $nextTrack = $(selector).next();
+                    console.log('$nextTrack', $nextTrack);
+                    // if there is the next track, play it, otherwise, play a first one
+                    ($nextTrack.length
+                        ? $nextTrack
+                        : $initialTrackLink
+                    ).trigger('click');
+                };
+                const setPlayerSrc = (track_src, trackLink) => {
+                    $(`.${activeClass}`).removeClass(activeClass);
+                    trackLink.classList.add(activeClass);
+                    $audioPlayer.attr('src', getTrackPath(track_src));
+                };
+                const playIt = track_src => {
                     // https://developers.google.com/web/updates/2017/06/play-request-was-interrupted
-                    const playTrack = event => {
-                        const trackLink = event.target,
-                            activeClass = config.classes.active;
-                        let track_src = $(trackLink).attr(config.data.src);
-                        $(`.${activeClass}`).removeClass(activeClass);
-                        trackLink.classList.add(activeClass);
-                        //console.log('event', trackLink.dataset['src']);
-                        $audioPlayer
-                            .attr('src', 'contents/tracks/' + track_src + '.mp3')
-                            .data(config.data.track, track_src);
-
-                        const playPromise = $audioPlayer[0].play();
-
-                        if (playPromise !== undefined) {
-                            playPromise.then(_ => {
-                                // Automatic playback started!
-                                // Show playing UI.
-                                console.log('Played!');
-                            })
-                                .catch(error => {
-                                    // Auto-play was prevented
-                                    // Show paused UI.
-                                });
-                        }
-
-                        $('#track-title').text(track_src.replace('_', ' '));
+                    const playPromise = audioPlayer.play();
+                    // 
+                    if (playPromise !== undefined) {
+                        playPromise.then(result => {
+                            console.log('Played!, result=>', result);
+                            $('#track-title').text(`Track: ${extractFileName(track_src)}`);
+                        }).catch(error => {
+                            console.error(`Error: ${error.message}`);
+                        });
                     }
-                    this.$el.on('click', `[${config.data.src}]`, event => {
-                        playTrack(event);
-                    });
-                    //
-                    /* $('#audio-play-temporal').on('click', event => {
-                        $audioPlayer[0].play();
-                    }); */
-                    //
-                    $('#tracks-play_all').on('click', event => {
-                        const checkbox = event.target,
-                            $getTrack = (active) => {
-                                let selector = `[${config.data.src}]`,
-                                    $track = $getTracksBox.find(selector).eq(0),
-                                    $activeTrack;
-                                if (active) {
-                                    $activeTrack = $(`${selector}.${config.classes.active}`);
-                                    if (!$activeTrack.length) $track.trigger('click');
-                                }
-                                return $track;
+                }
+                const $initialTrackLink = $getTracksBox.find(`[${dataSrc}]`).eq(0);
+                //const getFirstTrackName = () => getTrackPath($initialTrackLink.text().replace(/\s/, '_'));
+                // manage loop
+                $('#tracks-loop').on('click', event => {
+                    audioPlayer.loop = event.target.checked;
+                });
+
+                const playTrack = event => {
+                    const trackLink = event.target;
+                    //console.log('event', trackLink.dataset['src']);
+                    // set player src
+                    // TODO: optimize
+                    let track_src = $(trackLink).attr(dataSrc);
+                    setPlayerSrc(track_src, trackLink);
+                    playIt(track_src);
+                }
+                this.$el.on('click', `[${dataSrc}]`, event => {
+                    playTrack(event);
+                });
+
+                $tracksPlayAll.on('click', event => {
+                    // if play all tracks
+                    if (event.target.checked) {
+                        // if player.paused, play
+                        if (audioPlayer.paused) {
+                            // if current track is not reached its end, then play
+                            if (audioPlayer.duration !== audioPlayer.currentTime) {
+                                playIt(audioPlayer.src);
+                            } else { // if it is reached its end
+                                rePlay();
                             }
-                        if (checkbox.checked) {
-                            let $nextTrack;
-                            $audioPlayer.on('ended', () => {
-                                let dataTrack = $audioPlayer.data(config.data.track);
-                                // no tracks were run yet
-                                if (!dataTrack) {
-                                    dataTrack = $getTrack().attr(config.data.src);
-                                }
-                                $nextTrack = $(`[${config.data.src}="${dataTrack}"]`).next();
-
-                                if ($nextTrack.length) $nextTrack.trigger('click');
-                                else if ($('#tracks-loop')[0].checked) {
-                                    $getTrack().trigger('click');
-                                }
-                            });
-                            // get active or first track, run if have no active
-                            $getTrack(true);
-                        } else {
-                            $audioPlayer.off('ended');
                         }
-                    });
-                    clearInterval(intv);
-                }
+                    }
+                });
+                // if player is stopped
+                $audioPlayer.on('pause', () => {
+                    // if all the tracks are checked to play and the player has finished playing
+                    if ($tracksPlayAll[0].checked && audioPlayer.duration === audioPlayer.currentTime) {
+                        // play next of first track
+                        rePlay();
+                    }
+                });
 
-                if (cnt > 50) {
-                    clearInterval(intv);
-                    console.warn('Cannot get player...');
-                }
-
-            }, 100);
+                clearInterval(intv);
+            } else {
+                console.warn('Tracks box or Audio player were not downloaded');
+            }
+            // stop everything if it takes too long
+            if (cnt > 50) {
+                clearInterval(intv);
+                console.warn('Cannot get player...');
+            }
+        }, 100);
 
     },
     render() {
@@ -100,22 +118,25 @@ const homeView = Backbone.View.extend({
             tracksBox = html.el,
             tracksToPlay = {};
 
-
-        this.tracks = modelTracks.get('tracks')().then(function (tracks) {
-            //this.tracks = this.model.get('tracks')().then(function (tracks) {
-            var $trackBoxContainer = $(tracksBox).find('#tracks-box');
-            //console.log({ tracks: tracks, html: html, $trackBoxContainer: $trackBoxContainer });
-            _.each(tracks, function (track) {
-                tracksToPlay[track] = { html: $('<div/>').attr(config.data.src, track).text('loading...') };
+        // console.log('modelTracks', modelTracks); 
+        // get tracks list
+        this.tracks = modelTracks.get('tracks')().then(tracks => {
+            // get tracks container
+            const $trackBoxContainer = $(tracksBox).find('#tracks-box');
+            // load files
+            _.each(tracks, track => {
+                tracksToPlay[track] = { html: $('<div/>').attr(dataSrc, track).text('loading...') };
                 $trackBoxContainer.append(tracksToPlay[track].html);
-                loadTrack(track).then(function (trackContent) {
+                loadTrack(track).then(trackContent => {
                     tracksToPlay[track].contents = trackContent;
-                    //console.log('track ' + track + ' is downloaded...');
-                    tracksToPlay[track].html.text(track.replace(/_/g, ' '));
-                }, function () { });
+                    tracksToPlay[track].html.text(convertSeparator(track));
+                }, () => {
+
+                });
             });
-        }, function () {
-            console.warn('Cannot get tracks...');
-        });
+        }
+            , function () {
+                console.warn('Cannot get tracks...');
+            });
     }
 });
