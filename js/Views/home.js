@@ -122,15 +122,16 @@ const homeView = Backbone.View.extend({
             // get tracks container
             const $trackBoxContainer = $(tracksBox).find('#tracks-box');
             // load files
+            let cnt=0, number;
             _.each(tracks, track => {
                 tracksToPlay[track] = { html: $('<div/>').attr(dataSrc, track).text('loading...') };
                 $trackBoxContainer.append(tracksToPlay[track].html);
-                loadTrack(track).then(trackContent => {
-                    tracksToPlay[track].contents = trackContent;
-                    tracksToPlay[track].html.text(convertFileName(track));
-                }, () => {
-
-                });
+                number = cnt < 9 ? '0' + ++cnt : ++cnt
+                loadTrack(track, number).then(trackContent => {
+                    const thackNumber = Object.keys(trackContent)[0];
+                    tracksToPlay[track].contents = trackContent[thackNumber];
+                    tracksToPlay[track].html.text(`${thackNumber} ${convertFileName(track)}`);
+                }, () => {});
             });
         }
             , function () {
