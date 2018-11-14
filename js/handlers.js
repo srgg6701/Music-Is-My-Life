@@ -12,7 +12,6 @@ $(() => {
     const localizeContents = activeDictionary => {
         $elemsToLocale.each((index, element) => { // index, element to be localized
             const langDataSetString = element.dataset['l'];
-            //const dictKey = Object.keys(activeDictionary)[index]; // get a track name: "Baltic_march"
             // if not a container for a track name
             if (langDataSetString !== confNotChosenKey // 
                 // OR if element text is like ["is not chosen yet.","не выбран."]
